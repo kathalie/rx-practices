@@ -8,6 +8,7 @@
 import Foundation
 
 struct CoordinatesModel: Decodable {
+    let name: String
     let lat: Double
     let lon: Double
 }
