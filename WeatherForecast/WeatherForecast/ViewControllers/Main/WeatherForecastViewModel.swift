@@ -12,7 +12,7 @@ class WeatherForecastViewModel {
     private let disposeBag = DisposeBag()
     
     // MARK: Input
-    let inputCity: BehaviorRelay<String>
+    let inputCity = PublishRelay<String>()
     
     // MARK: Output
     private let _weatherForecast = PublishRelay<WeekWeatherForecastModel?>()
@@ -26,12 +26,22 @@ class WeatherForecastViewModel {
     
     // MARK: Init
     init(initialTextFieldState: String) {
-        inputCity = BehaviorRelay<String>(value: initialTextFieldState)
-        
         inputCity
             .distinctUntilChanged()
             .bind(onNext: { [weak self] city in
-                if city.isEmpty {return}
+                guard !city.isEmpty else {
+                    guard let self else {return}
+                    
+                    Observable.just("")
+                        .bind(to: self._outputCity)
+                        .disposed(by: disposeBag)
+                    
+                    Observable.just(nil)
+                        .bind(to: self._weatherForecast)
+                        .disposed(by: disposeBag)
+                    
+                    return
+                }
                 
                 self?.fetchWeatherForecast(for: city)
             })
@@ -95,7 +105,7 @@ class WeatherForecastViewModel {
                     
                     Observable.just(nil)
                         .bind(to: self._weatherForecast)
-                        .disposed(by: disposeBag)
+                        .disposed(by: self.disposeBag)
                     
                     Observable.just((title: "Error", message: "Failed to fetch forecast"))
                         .bind(to: self._error)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 struct WeekWeatherForecast {
     private(set) var wetherForecast: [DayWeatherForecast] = []

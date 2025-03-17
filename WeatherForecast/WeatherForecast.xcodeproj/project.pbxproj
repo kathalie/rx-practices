@@ -90,6 +90,23 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		8C57CB772D88D6F100F4DC4C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8C57CB782D88D71500F4DC4C /* Main */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8C57CB782D88D71500F4DC4C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8C8190A42D81FBD2008D4A09 /* ViewController.swift */,
+				8C8190B62D820999008D4A09 /* WeatherForecastViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		8C8190942D81FBD2008D4A09 = {
 			isa = PBXGroup;
 			children = (
@@ -109,12 +126,11 @@
 		8C81909F2D81FBD2008D4A09 /* WeatherForecast */ = {
 			isa = PBXGroup;
 			children = (
-				8C57CB732D88C66500F4DC4C /* Extensions */,
-				8C8190D62D83155E008D4A09 /* Views */,
 				8C8190B52D820981008D4A09 /* Config */,
+				8C57CB732D88C66500F4DC4C /* Extensions */,
+				8C57CB772D88D6F100F4DC4C /* ViewControllers */,
+				8C8190D62D83155E008D4A09 /* Views */,
 				8C8190C92D820CDB008D4A09 /* Data */,
-				8C8190A42D81FBD2008D4A09 /* ViewController.swift */,
-				8C8190B62D820999008D4A09 /* WeatherForecastViewModel.swift */,
 				8C8190A62D81FBD2008D4A09 /* Main.storyboard */,
 				8C8190A92D81FBD3008D4A09 /* Assets.xcassets */,
 				8C8190AB2D81FBD3008D4A09 /* LaunchScreen.storyboard */,

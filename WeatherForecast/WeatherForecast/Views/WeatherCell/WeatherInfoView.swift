@@ -7,13 +7,18 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
 class WeatherInfoView: UIView {
     private let disposeBag = DisposeBag()
     
+    // MARK: Output
+    private let _weatherImage = PublishRelay<UIImage?>()
+    private(set) lazy var weatherImage = self._weatherImage.asObservable()
+    
     let kCONTENT_XIB_NAME = "WeatherInfoView"
     
-    @IBOutlet var dayForecastView: UIView!
+    @IBOutlet weak var dayForecastView: UIView!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var weatherConditionLabel: UILabel!
@@ -35,14 +40,38 @@ class WeatherInfoView: UIView {
     private func commonInit() {
         Bundle.main.loadNibNamed(kCONTENT_XIB_NAME, owner: self, options: nil)
         dayForecastView.fixInView(self)
+        
+        doRxCocoaSetup()
+    }
+    
+    private func doRxCocoaSetup()  {
+        // MARK: Output
+        weatherImage
+            .bind(to: iconImage.rx.image)
+            .disposed(by: disposeBag)
     }
     
     public func config(with config: HalfDayWeatherForecast) {
         fetchIcon(with: config.iconId)
-        temperatureLabel.text = "\(config.temperature)°C"
-        weatherConditionLabel.text = config.weatherCondition
-        windSpeedLabel.text = "\(config.windSpeed)m/s"
-        rainLabel.text = "\(config.rainMm)mm"
+        
+        let configObservable = Observable.just(config)
+
+        configObservable
+            .map {"\($0.temperature)°C"}
+            .bind(to: self.temperatureLabel.rx.text)
+            .disposed(by: disposeBag)
+        configObservable
+            .map(\.weatherCondition)
+            .bind(to: self.weatherConditionLabel.rx.text)
+            .disposed(by: disposeBag)
+        configObservable
+            .map {"\($0.windSpeed)m/s"}
+            .bind(to: self.windSpeedLabel.rx.text)
+            .disposed(by: disposeBag)
+        configObservable
+            .map {"\($0.rainMm)mm"}
+            .bind(to: self.rainLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func fetchIcon(with id: String) {
@@ -50,10 +79,20 @@ class WeatherInfoView: UIView {
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onSuccess: { [weak self] image in
-                    self?.iconImage.image = image
+                    guard let self else {return}
+                    
+                    Observable.just(image)
+                        .bind(to: self._weatherImage)
+                        .disposed(by: self.disposeBag)
                 },
                 onFailure: {[weak self] error in
-                    self?.iconImage.image = nil
+                    guard let self else {return}
+                    
+                    print(error)
+                    
+                    Observable.just(nil)
+                        .bind(to: self._weatherImage)
+                        .disposed(by: self.disposeBag)
                 }
             )
             .disposed(by: disposeBag)
