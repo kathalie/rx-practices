@@ -8,11 +8,13 @@
 import UIKit
 
 class WeatherForecastTableViewCell: UITableViewCell {
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var infoView: WeatherInfoView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var dayInfoView: WeatherInfoView!
+    @IBOutlet private weak var nightInfoView: WeatherInfoView!
     
     func config(with config: WeatherInfo) {
-        infoView.config(with: config)
+        dayInfoView.config(with: config)
+        nightInfoView.config(with: config)
         dateLabel.text = "\(config.date)"
     }
 }

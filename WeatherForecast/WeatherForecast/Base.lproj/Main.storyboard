@@ -38,10 +38,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="day_forecast_cell" id="77k-HK-BEw" customClass="WeatherForecastTableViewCell" customModule="WeatherForecast" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="357" height="176"/>
+                                        <rect key="frame" x="0.0" y="50" width="357" height="35.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77k-HK-BEw" id="r60-Za-aG9">
-                                            <rect key="frame" x="0.0" y="0.0" width="357" height="176"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="357" height="35.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Yg-xl-Jya">
@@ -50,29 +50,45 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89R-ds-yAC">
-                                                    <rect key="frame" x="0.0" y="43.333333333333329" width="357" height="128.66666666666669"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bG5-5O-Fng">
+                                                    <rect key="frame" x="0.0" y="35.333333333333336" width="357" height="0.3333333333333357"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ee-XJ-TUj" customClass="WeatherInfoView" customModule="WeatherForecast" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="357" height="128.66666666666666"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="178.66666666666666" height="0.33333333333333331"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6k-1w-gP8" customClass="WeatherInfoView" customModule="WeatherForecast" customModuleProvider="target">
+                                                            <rect key="frame" x="178.66666666666663" y="0.0" width="178.33333333333337" height="0.33333333333333331"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         </view>
                                                     </subviews>
-                                                </stackView>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="H6k-1w-gP8" secondAttribute="bottom" id="1fy-Jy-oeU"/>
+                                                        <constraint firstItem="7Ee-XJ-TUj" firstAttribute="width" secondItem="H6k-1w-gP8" secondAttribute="width" id="3lZ-I0-Ls1"/>
+                                                        <constraint firstItem="H6k-1w-gP8" firstAttribute="leading" secondItem="7Ee-XJ-TUj" secondAttribute="trailing" id="ax5-2M-H2k"/>
+                                                        <constraint firstAttribute="trailing" secondItem="H6k-1w-gP8" secondAttribute="trailing" id="eai-GC-Lke"/>
+                                                        <constraint firstAttribute="bottom" secondItem="7Ee-XJ-TUj" secondAttribute="bottom" id="fiH-5l-8Go"/>
+                                                        <constraint firstItem="7Ee-XJ-TUj" firstAttribute="top" secondItem="bG5-5O-Fng" secondAttribute="top" id="hrK-KS-U2D"/>
+                                                        <constraint firstItem="H6k-1w-gP8" firstAttribute="top" secondItem="bG5-5O-Fng" secondAttribute="top" id="uA1-Dh-zKJ"/>
+                                                        <constraint firstItem="7Ee-XJ-TUj" firstAttribute="leading" secondItem="bG5-5O-Fng" secondAttribute="leading" id="y8Y-mu-cqf"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="89R-ds-yAC" secondAttribute="bottom" constant="4" id="GdS-HK-Oby"/>
+                                                <constraint firstAttribute="trailing" secondItem="bG5-5O-Fng" secondAttribute="trailing" id="ME5-nj-RfX"/>
+                                                <constraint firstItem="bG5-5O-Fng" firstAttribute="top" secondItem="7Yg-xl-Jya" secondAttribute="bottom" id="Qb9-lR-xLq"/>
+                                                <constraint firstAttribute="bottom" secondItem="bG5-5O-Fng" secondAttribute="bottom" id="V7C-Ph-jeI"/>
+                                                <constraint firstItem="bG5-5O-Fng" firstAttribute="leading" secondItem="r60-Za-aG9" secondAttribute="leading" id="XJo-JA-xxk"/>
                                                 <constraint firstItem="7Yg-xl-Jya" firstAttribute="leading" secondItem="r60-Za-aG9" secondAttribute="leadingMargin" id="ZM9-Il-k3K"/>
-                                                <constraint firstAttribute="trailing" secondItem="89R-ds-yAC" secondAttribute="trailing" id="jds-3o-SEt"/>
                                                 <constraint firstItem="7Yg-xl-Jya" firstAttribute="top" secondItem="r60-Za-aG9" secondAttribute="topMargin" constant="4" id="lKG-Ak-FLd"/>
-                                                <constraint firstItem="89R-ds-yAC" firstAttribute="top" secondItem="7Yg-xl-Jya" secondAttribute="bottom" constant="8" id="nnV-kL-6CC"/>
-                                                <constraint firstItem="89R-ds-yAC" firstAttribute="leading" secondItem="r60-Za-aG9" secondAttribute="leading" id="tga-9B-uah"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="7Yg-xl-Jya" secondAttribute="trailing" id="yyJ-uO-gib"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="7Yg-xl-Jya" id="Ukx-lY-3zK"/>
-                                            <outlet property="infoView" destination="7Ee-XJ-TUj" id="Js1-6e-pgW"/>
+                                            <outlet property="dayInfoView" destination="7Ee-XJ-TUj" id="Js1-6e-pgW"/>
+                                            <outlet property="nightInfoView" destination="H6k-1w-gP8" id="eyl-op-qJ9"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
