@@ -9,26 +9,17 @@ import UIKit
 import RxSwift
 import RxDataSources
 
-struct WeatherInfo {
-    let date: Int
-    let iconImage: UIImage
-    let temperature: Double
-    let weatherCondition: String
-    let windSpeed: Double
-    let rainMm: Double
-}
-
 struct SectionOfCustomData {
     var header: String
-  var items: [Item]
+    var items: [Item]
 }
 extension SectionOfCustomData: SectionModelType {
-  typealias Item = WeatherInfo
+    typealias Item = DayWeatherForecast
 
-   init(original: SectionOfCustomData, items: [Item]) {
-    self = original
-    self.items = items
-  }
+    init(original: SectionOfCustomData, items: [Item]) {
+        self = original
+        self.items = items
+    }
 }
 
 class ViewController: UIViewController {
@@ -48,78 +39,63 @@ class ViewController: UIViewController {
         
         vm = WeatherForecastViewModel(initialTextFieldState: cityTextField.text ?? "")
         
-        fillTableWithData()
-//        fetchWeatherForecast(for: "London")
+        doRxCocoaSetup()
     }
     
-    private func fillTableWithData() {
+    private func doRxCocoaSetup() {
+        // MARK: Input
+        cityTextField.rx.text
+            .orEmpty
+            .bind(to: vm.inputCity)
+            .disposed(by: disposeBag)
+        
+        
+        // MARK: Output
+        vm.error
+            .bind(onNext: { [weak self] (title, message) in
+                self?.showAlert(title: title, message: message)
+            })
+            .disposed(by: disposeBag)
+        
+        vm.outputCity
+            .bind(to: cityNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        vm.weatherForecast
+            .bind(onNext: { [weak self] forecast in
+                self?.fillTable(with: forecast)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    private func fillTable(with forecast: WeekWeatherForecastModel?) {
         let dataSource = RxTableViewSectionedReloadDataSource<SectionOfCustomData>(
           configureCell: { dataSource, tableView, indexPath, item in
-              let cell = tableView.dequeueReusableCell(withIdentifier: Const.dayForecastCellReuseId, for: indexPath) as! WeatherForecastTableViewCell
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: Const.dayForecastCellReuseId,
+                for: indexPath
+            ) as! WeatherForecastTableViewCell
+            
             cell.config(with: item)
               
             return cell
         })
         
-        let sections = [
-            SectionOfCustomData(header: "First section", items: [WeatherInfo(date: 123, iconImage: UIImage(systemName: "multiply.circle.fill")!, temperature: 12.4, weatherCondition: "Rain", windSpeed: 12.3, rainMm: 12.3)])
-        ]
-
+        var sections: [SectionOfCustomData] = []
+        if let forecast {
+            sections = [SectionOfCustomData(
+                header: "",
+                items: WeekWeatherForecast(from: forecast).wetherForecast
+            )]
+        }
+        
+        forecastTableView.dataSource = nil
+        forecastTableView.delegate = nil
+            
         Observable.just(sections)
           .bind(to: forecastTableView.rx.items(dataSource: dataSource))
           .disposed(by: disposeBag)
-    }
-
-    private func fetchWeatherForecast(for cityName: String) {
-        fetchCityCoordinatess(for: cityName)
-            .observe(on: MainScheduler.instance)
-            .subscribe(
-                onSuccess: {[weak self] coordinatesModel in
-                    print("Parsed coords: \(coordinatesModel.lat), \(coordinatesModel.lon)")
-                    
-                    self?.fetchWeatherForecast(lat: coordinatesModel.lat, lon: coordinatesModel.lon)
-                },
-                onFailure: {[weak self] error in
-                    print(error)
-                    
-                    self?.showAlert(title: "Error", message: "Failed to fetch coordinates")
-                }
-            )
-            .disposed(by: disposeBag)
-    }
-    
-    private func fetchWeatherForecast(lat: Double, lon: Double) {
-        fetchWeekForecast(lat: lat, lon: lon)
-            .observe(on: MainScheduler.instance)
-            .subscribe(
-                onSuccess: {[weak self] forecast in
-                    print(forecast)
-                    
-                    self?.fetchIcon(with: forecast.list.first?.weather.first?.icon ?? "")
-                },
-                onFailure: {[weak self] error in
-                    print(error)
-                    
-                    self?.showAlert(title: "Error", message: "Failed to fetch forecast")
-                }
-            )
-            .disposed(by: disposeBag)
-    }
-    
-    private func fetchIcon(with id: String) {
-        fetchWeatherImage(with: id)
-            .observe(on: MainScheduler.instance)
-            .subscribe(
-                onSuccess: { [weak self] image in
-//                    self?.icon.image = image
-                },
-                onFailure: {[weak self] error in
-                    print(error)
-                    
-                    self?.showAlert(title: "Error", message: "Failed to fetch icon")
-                }
-            )
-            .disposed(by: disposeBag)
     }
 }
 

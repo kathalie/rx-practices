@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class WeatherInfoView: UIView {
+    private let disposeBag = DisposeBag()
+    
     let kCONTENT_XIB_NAME = "WeatherInfoView"
     
     @IBOutlet var dayForecastView: UIView!
@@ -34,12 +37,26 @@ class WeatherInfoView: UIView {
         dayForecastView.fixInView(self)
     }
     
-    public func config(with config: WeatherInfo) {
-        iconImage.image = config.iconImage
+    public func config(with config: HalfDayWeatherForecast) {
+        fetchIcon(with: config.iconId)
         temperatureLabel.text = "\(config.temperature)°C"
         weatherConditionLabel.text = config.weatherCondition
         windSpeedLabel.text = "\(config.windSpeed)m/s"
         rainLabel.text = "\(config.rainMm)mm"
+    }
+    
+    private func fetchIcon(with id: String) {
+        fetchWeatherImage(with: id)
+            .observe(on: MainScheduler.instance)
+            .subscribe(
+                onSuccess: { [weak self] image in
+                    self?.iconImage.image = image
+                },
+                onFailure: {[weak self] error in
+                    self?.iconImage.image = nil
+                }
+            )
+            .disposed(by: disposeBag)
     }
 }
 

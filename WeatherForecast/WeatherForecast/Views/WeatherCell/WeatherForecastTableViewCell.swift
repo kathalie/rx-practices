@@ -12,9 +12,9 @@ class WeatherForecastTableViewCell: UITableViewCell {
     @IBOutlet private weak var dayInfoView: WeatherInfoView!
     @IBOutlet private weak var nightInfoView: WeatherInfoView!
     
-    func config(with config: WeatherInfo) {
-        dayInfoView.config(with: config)
-        nightInfoView.config(with: config)
+    func config(with config: DayWeatherForecast) {
+        dayInfoView.config(with: config.dayForecast)
+        nightInfoView.config(with: config.nightForecast)
         dateLabel.text = "\(config.date)"
     }
 }

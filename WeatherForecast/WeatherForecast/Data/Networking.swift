@@ -69,10 +69,10 @@ func fetchCityCoordinatess(for cityName: String) -> Single<CoordinatesModel> {
     }
 }
 
-func fetchWeekForecast(lat: Double, lon: Double) -> Single<WeekForecastModel> {
+func fetchWeekForecast(lat: Double, lon: Double) -> Single<WeekWeatherForecastModel> {
     let openWeatherForecastApi = "https://api.openweathermap.org/data/2.5/forecast"
     
-    return Single<WeekForecastModel>.create { single in
+    return Single<WeekWeatherForecastModel>.create { single in
         let url = URL(string: openWeatherForecastApi)!
             .appending(queryItems: [
                 URLQueryItem(name: "lat", value: "\(lat)"),
@@ -96,9 +96,9 @@ func fetchWeekForecast(lat: Double, lon: Double) -> Single<WeekForecastModel> {
             }
             
             do {
-                print(String(data: data, encoding: .utf8) ?? "")
+//                print(String(data: data, encoding: .utf8) ?? "")
                 
-                let decodedData = try JSONDecoder().decode(WeekForecastModel.self, from: data)
+                let decodedData = try JSONDecoder().decode(WeekWeatherForecastModel.self, from: data)
                 
                 single(.success(decodedData))
             } catch {
