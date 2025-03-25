@@ -21,8 +21,14 @@ final class WeatherForecastTests: XCTestCase {
         disposeBag = DisposeBag()
     }
 
-    func testExample() throws {
-        
+    func testFetchCityCoordinates_Success() {
+//        let expectedCity = CoordinatesModel(lat: 50.45, lon: 30.52)
+//        let mockService = MockWeatherService(expectedCoordinates: expectedCity)
+//        
+//        let result = try? mockService.fetchCityCoordinatess(for: "Kyiv").toBlocking().first()
+//        
+//        XCTAssertEqual(result?.lat, expectedCity.lat)
+//        XCTAssertEqual(result?.lon, expectedCity.lon)
     }
     
     override func tearDownWithError() throws {

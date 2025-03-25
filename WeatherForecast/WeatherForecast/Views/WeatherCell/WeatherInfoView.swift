@@ -11,6 +11,7 @@ import RxRelay
 
 class WeatherInfoView: UIView {
     private let disposeBag = DisposeBag()
+    private let weatherService = OpenWeatherService()
     
     // MARK: Output
     private let _weatherImage = PublishRelay<UIImage?>()
@@ -75,7 +76,7 @@ class WeatherInfoView: UIView {
     }
     
     private func fetchIcon(with id: String) {
-        fetchWeatherImage(with: id)
+        weatherService.fetchWeatherImage(with: id)
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onSuccess: { [weak self] image in

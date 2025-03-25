@@ -10,6 +10,7 @@ import RxRelay
 
 class WeatherForecastViewModel {
     private let disposeBag = DisposeBag()
+    private let weatherService = OpenWeatherService()
     
     // MARK: Input
     let inputCity = PublishRelay<String>()
@@ -50,7 +51,7 @@ class WeatherForecastViewModel {
     
     // MARK: Fetch
     private func fetchWeatherForecast(for cityName: String) {
-        fetchCityCoordinatess(for: cityName)
+        weatherService.fetchCityCoordinatess(for: cityName)
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onSuccess: {[weak self] coordinatesModel in
@@ -88,7 +89,7 @@ class WeatherForecastViewModel {
     }
     
     private func fetchWeatherForecast(lat: Double, lon: Double) {
-        fetchWeekForecast(lat: lat, lon: lon)
+        weatherService.fetchWeekForecast(lat: lat, lon: lon)
             .observe(on: MainScheduler.instance)
             .subscribe(
                 onSuccess: {[weak self] forecast in
