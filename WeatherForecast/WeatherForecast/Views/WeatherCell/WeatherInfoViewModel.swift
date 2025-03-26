@@ -17,8 +17,6 @@ struct WeekWeatherForecast {
         let grouppedModel = Dictionary(grouping: transfromedModel) { $0.date }
             .sorted(by: {$0.key < $1.key})
         
-        print(grouppedModel)
-        
         grouppedModel.forEach { (date, forecastInfos) in
             guard
                 let dayForecastInfo = forecastInfos.first(where: {$0.hour == 13})?.forecast,
