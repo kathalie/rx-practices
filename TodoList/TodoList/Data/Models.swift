@@ -14,5 +14,5 @@ struct CreateTodoTaskModel {
 struct EditTodoTaskModel {
     let id: UUID
     let name: String
-    let isFinished: Bool
+    let isCompleted: Bool
 }

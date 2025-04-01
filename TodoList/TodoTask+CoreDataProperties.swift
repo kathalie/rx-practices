@@ -16,9 +16,9 @@ extension TodoTask {
         return NSFetchRequest<TodoTask>(entityName: "TodoTask")
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var finished: Bool
-    @NSManaged public var id: UUID?
+    @NSManaged public var name: String
+    @NSManaged public var isCompleted: Bool
+    @NSManaged public var id: UUID
 
 }
 

@@ -83,7 +83,7 @@ class CoreDataService {
         }
         
         taskToEdit.name = task.name
-        taskToEdit.finished = task.isFinished
+        taskToEdit.isCompleted = task.isCompleted
         
         do {
             try context.save()
