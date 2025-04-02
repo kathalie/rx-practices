@@ -17,7 +17,7 @@ enum SortOption: String, CaseIterable {
         case .allFields:
             return [
                 NSSortDescriptor(keyPath: \TodoTask.isCompleted, ascending: true),
-                NSSortDescriptor(keyPath: \TodoTask.priority, ascending: false),
+                NSSortDescriptor(keyPath: \TodoTask.priority, ascending: true),
                 NSSortDescriptor(keyPath: \TodoTask.dueDate, ascending: true),
                 NSSortDescriptor(keyPath: \TodoTask.name, ascending: true),
             ]

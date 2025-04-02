@@ -13,7 +13,6 @@ import SwiftUI
 class TaskListViewModel: ObservableObject, HandlesErrors {
     @Published private(set) var tasks: [TodoTask] = []
     @Published var error: String?
-    
     @Published var searchText: String = ""
     @Published var sortOption: SortOption = .allFields
     

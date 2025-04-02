@@ -11,7 +11,6 @@ import Combine
 
 struct TaskFormView: View {
     @ObservedObject private var vm: TaskFormViewModel
-    @EnvironmentObject var taskListVM: TaskListViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var showingError = false
     
@@ -27,9 +26,13 @@ struct TaskFormView: View {
                     Text(priority.asString).tag(priority)
                 }
             }
-            DatePicker(selection: $vm.taskDueDate, in: Date()...) {
+            DatePicker(
+                selection: $vm.taskDueDate,
+                displayedComponents: [.date]
+            ) {
                 Text("Due Date")
             }
+            
             Button("Save", action: handleSave)
         }
         .navigationTitle(vm.navigationTitle)
@@ -38,9 +41,6 @@ struct TaskFormView: View {
         }, message: {
             Text(vm.error ?? "")
         })
-//        .onDisappear {
-//            taskListVM.loadTasks()
-//        }
     }
     
     private func handleSave() {
@@ -52,6 +52,5 @@ struct TaskFormView: View {
         }
         
         presentationMode.wrappedValue.dismiss()
-    
     }
 }

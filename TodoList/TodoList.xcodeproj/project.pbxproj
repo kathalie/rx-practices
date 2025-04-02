@@ -23,7 +23,6 @@
 		8CA522422D9C78AF003BE5E0 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522412D9C78AF003BE5E0 /* TaskFormView.swift */; };
 		8CA522442D9C78B8003BE5E0 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522432D9C78B8003BE5E0 /* TaskFormViewModel.swift */; };
 		8CF1FD172D9D79FD0060443A /* HandlesErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */; };
-		8CF1FD1E2D9D9DEB0060443A /* SortTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD1D2D9D9DEB0060443A /* SortTasksView.swift */; };
 		8CF1FD202D9DC3DF0060443A /* SortOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +45,6 @@
 		8CA522412D9C78AF003BE5E0 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		8CA522432D9C78B8003BE5E0 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlesErrors.swift; sourceTree = "<group>"; };
-		8CF1FD1D2D9D9DEB0060443A /* SortTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTasksView.swift; sourceTree = "<group>"; };
 		8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,7 +124,6 @@
 		8CA5223F2D9C75B0003BE5E0 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
-				8CF1FD1C2D9D9DD10060443A /* Components */,
 				8CA522132D9C400C003BE5E0 /* TaskListViewModel.swift */,
 				8CA522112D9C4001003BE5E0 /* TasksListView.swift */,
 			);
@@ -149,14 +146,6 @@
 				8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		8CF1FD1C2D9D9DD10060443A /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				8CF1FD1D2D9D9DEB0060443A /* SortTasksView.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,7 +232,6 @@
 				8CA522122D9C4001003BE5E0 /* TasksListView.swift in Sources */,
 				8CA5220A2D9C2A98003BE5E0 /* CoreDataStack.swift in Sources */,
 				8CF1FD172D9D79FD0060443A /* HandlesErrors.swift in Sources */,
-				8CF1FD1E2D9D9DEB0060443A /* SortTasksView.swift in Sources */,
 				8CA522142D9C400C003BE5E0 /* TaskListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
