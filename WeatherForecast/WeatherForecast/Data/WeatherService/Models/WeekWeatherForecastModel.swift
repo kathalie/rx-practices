@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct WeekWeatherForecastModel: Decodable {
+struct WeekWeatherForecastModel: Decodable, Equatable {
     let list: [DayForecastModel]
 }
 
-struct DayForecastModel: Decodable {
+struct DayForecastModel: Decodable, Equatable {
     let dt: Int
     let main: DayForecastMainModel
     let weather: [DayForecastWeatherModel]
@@ -19,23 +19,23 @@ struct DayForecastModel: Decodable {
     let rain: DayForecastRainModel?
 }
 
-struct DayForecastMainModel: Decodable {
+struct DayForecastMainModel: Decodable, Equatable {
     let temp: Double
 }
 
-struct DayForecastWeatherModel: Decodable {
+struct DayForecastWeatherModel: Decodable, Equatable {
     let main: String
     let icon: String
 }
 
-struct DayForecastWindModel: Decodable {
+struct DayForecastWindModel: Decodable, Equatable {
     let speed: Double
 }
 
-struct DayForecastRainModel: Decodable {
+struct DayForecastRainModel: Decodable, Equatable {
     let threeHours: Double
 
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey, Equatable {
         case threeHours = "3h"
     }
 }

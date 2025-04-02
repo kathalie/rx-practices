@@ -22,7 +22,19 @@ final class WeatherForecastViewModelTests: XCTestCase {
         disposeBag = DisposeBag()
     }
     
-    // TODO read more about blocking
+    func testValidCityAsDefault() {
+        let inputCity = "Kyiv"
+        let vm = WeatherForecastViewModel(initialTextFieldState: inputCity)
+        
+        vm.inputCity.accept(inputCity)
+        
+        let outputCityResults = vm.outputCity.toBlocking()
+        let weatherForecastResults = vm.weatherForecast.toBlocking()
+        
+        XCTAssertEqual(try outputCityResults.first(), inputCity)
+        XCTAssertNotNil(try weatherForecastResults.first())
+    }
+    
     func testValidCityInput() {
         let input = "Kyiv"
         let expectedOutput = input
@@ -35,24 +47,19 @@ final class WeatherForecastViewModelTests: XCTestCase {
 
         XCTAssertEqual(try results.first(), expectedOutput)
     }
-
-
     
-    func testWeatherForecastViewModel_EmptyInput() {
+    func testPastedCityInputWithWhitespace() {
+        let input = "   Kyiv   "
+        let expectedOutput = "Kyiv"
+        
         let vm = WeatherForecastViewModel(initialTextFieldState: "")
         
-        let observer = scheduler.createObserver(String.self)
+        vm.inputCity.accept(input)
         
-        scheduler.scheduleAt(0) {
-            vm.inputCity.accept("")
-            vm.outputCity.bind(to: observer).disposed(by: self.disposeBag)
-        }
+        let results = vm.outputCity.toBlocking()
         
-        scheduler.start()
-        
-        XCTAssertEqual(observer.events.map { $0.value.element }, [""])
+        XCTAssertEqual(try results.first(), expectedOutput)
     }
-    
     
     
     override func tearDownWithError() throws {
