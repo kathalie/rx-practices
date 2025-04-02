@@ -14,7 +14,7 @@
 		8CA521F72D9B5EA2003BE5E0 /* TodoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8CA521F52D9B5EA2003BE5E0 /* TodoList.xcdatamodeld */; };
 		8CA522042D9C27F8003BE5E0 /* TodoTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522022D9C27F8003BE5E0 /* TodoTask+CoreDataClass.swift */; };
 		8CA522052D9C27F8003BE5E0 /* TodoTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522032D9C27F8003BE5E0 /* TodoTask+CoreDataProperties.swift */; };
-		8CA522082D9C29F5003BE5E0 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522072D9C29F5003BE5E0 /* CoreDataService.swift */; };
+		8CA522082D9C29F5003BE5E0 /* TasksCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522072D9C29F5003BE5E0 /* TasksCoreDataService.swift */; };
 		8CA5220A2D9C2A98003BE5E0 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522092D9C2A98003BE5E0 /* CoreDataStack.swift */; };
 		8CA5220C2D9C2DAD003BE5E0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA5220B2D9C2DAD003BE5E0 /* Models.swift */; };
 		8CA5220E2D9C2F87003BE5E0 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA5220D2D9C2F87003BE5E0 /* Errors.swift */; };
@@ -23,6 +23,8 @@
 		8CA522422D9C78AF003BE5E0 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522412D9C78AF003BE5E0 /* TaskFormView.swift */; };
 		8CA522442D9C78B8003BE5E0 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522432D9C78B8003BE5E0 /* TaskFormViewModel.swift */; };
 		8CF1FD172D9D79FD0060443A /* HandlesErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */; };
+		8CF1FD1E2D9D9DEB0060443A /* SortTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD1D2D9D9DEB0060443A /* SortTasksView.swift */; };
+		8CF1FD202D9DC3DF0060443A /* SortOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +37,7 @@
 		8CA521FD2D9B5FD4003BE5E0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8CA522022D9C27F8003BE5E0 /* TodoTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8CA522032D9C27F8003BE5E0 /* TodoTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		8CA522072D9C29F5003BE5E0 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		8CA522072D9C29F5003BE5E0 /* TasksCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCoreDataService.swift; sourceTree = "<group>"; };
 		8CA522092D9C2A98003BE5E0 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		8CA5220B2D9C2DAD003BE5E0 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		8CA5220D2D9C2F87003BE5E0 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		8CA522412D9C78AF003BE5E0 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		8CA522432D9C78B8003BE5E0 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlesErrors.swift; sourceTree = "<group>"; };
+		8CF1FD1D2D9D9DEB0060443A /* SortTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTasksView.swift; sourceTree = "<group>"; };
+		8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +106,7 @@
 		8CA522062D9C29DD003BE5E0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				8CA522072D9C29F5003BE5E0 /* CoreDataService.swift */,
+				8CA522072D9C29F5003BE5E0 /* TasksCoreDataService.swift */,
 				8CA522092D9C2A98003BE5E0 /* CoreDataStack.swift */,
 				8CA5220B2D9C2DAD003BE5E0 /* Models.swift */,
 				8CA5220D2D9C2F87003BE5E0 /* Errors.swift */,
@@ -122,6 +126,7 @@
 		8CA5223F2D9C75B0003BE5E0 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
+				8CF1FD1C2D9D9DD10060443A /* Components */,
 				8CA522132D9C400C003BE5E0 /* TaskListViewModel.swift */,
 				8CA522112D9C4001003BE5E0 /* TasksListView.swift */,
 			);
@@ -141,8 +146,17 @@
 			isa = PBXGroup;
 			children = (
 				8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */,
+				8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		8CF1FD1C2D9D9DD10060443A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8CF1FD1D2D9D9DEB0060443A /* SortTasksView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,12 +229,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CF1FD202D9DC3DF0060443A /* SortOptions.swift in Sources */,
 				8CA522052D9C27F8003BE5E0 /* TodoTask+CoreDataProperties.swift in Sources */,
 				8CA521ED2D9B5EA0003BE5E0 /* ContentView.swift in Sources */,
 				8CA521EB2D9B5EA0003BE5E0 /* TodoListApp.swift in Sources */,
 				8CA522422D9C78AF003BE5E0 /* TaskFormView.swift in Sources */,
 				8CA522442D9C78B8003BE5E0 /* TaskFormViewModel.swift in Sources */,
-				8CA522082D9C29F5003BE5E0 /* CoreDataService.swift in Sources */,
+				8CA522082D9C29F5003BE5E0 /* TasksCoreDataService.swift in Sources */,
 				8CA521F72D9B5EA2003BE5E0 /* TodoList.xcdatamodeld in Sources */,
 				8CA5220E2D9C2F87003BE5E0 /* Errors.swift in Sources */,
 				8CA5220C2D9C2DAD003BE5E0 /* Models.swift in Sources */,
@@ -228,6 +243,7 @@
 				8CA522122D9C4001003BE5E0 /* TasksListView.swift in Sources */,
 				8CA5220A2D9C2A98003BE5E0 /* CoreDataStack.swift in Sources */,
 				8CF1FD172D9D79FD0060443A /* HandlesErrors.swift in Sources */,
+				8CF1FD1E2D9D9DEB0060443A /* SortTasksView.swift in Sources */,
 				8CA522142D9C400C003BE5E0 /* TaskListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

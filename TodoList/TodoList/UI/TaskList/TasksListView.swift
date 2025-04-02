@@ -13,41 +13,56 @@ struct TaskListView: View {
     @ObservedObject private var vm = TaskListViewModel()
     @State private var showingError = false
     
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        vm.$error
+            .map {$0 != nil}
+            .assign(to: \.showingError, on: self)
+            .store(in: &cancellables)
+    }
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(vm.tasks) { task in
-                    NavigationLink(destination: TaskFormView(taskToEdit: task).environmentObject(vm)) {
-                        HStack {
-                            Button(action: { vm.toggleCompletion(for: task) }) {
-                                Image(systemName: task.isCompleted ? "checkmark.square" : "square")
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            
-                            Text(task.name)
-                                .strikethrough(task.isCompleted)
-                        }
-                    }
-                    .background(taskBgColor(for: task))
+            VStack {
+                HStack {
+                    TextField("Search tasks...", text: $vm.searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+                    SortTasksView(taskListVm: vm)
                 }
-                .onDelete(perform: vm.deleteTask)
+                List {
+                    ForEach(vm.tasks) { task in
+                        NavigationLink(destination: TaskFormView(taskToEdit: task).environmentObject(vm)) {
+                            HStack {
+                                Button(action: { vm.toggleCompletion(for: task) }) {
+                                    Image(systemName: task.isCompleted ? "checkmark.square" : "square")
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                VStack(alignment: .leading) {
+                                    Text(task.name)
+                                        .strikethrough(task.isCompleted)
+                                        .font(.title2)
+                                    Text(formattedTaskDate(for: task.dueDate))
+                                        .font(.title3)
+                                }
+                            }
+                        }
+                        .background(taskBgColor(for: task))
+                    }
+                    .onDelete(perform: vm.deleteTask)
+                }
+                .navigationTitle("Todo List")
+                .toolbar {
+                    NavigationLink("+", destination: TaskFormView().environmentObject(vm))
+                }
+                .alert("Error", isPresented: $showingError, actions: {
+                    Button("OK", role: .cancel) {vm.error = nil}
+                }, message: {
+                    Text(vm.error ?? "")
+                })
             }
-            .navigationTitle("Todo List")
-            .toolbar {
-                NavigationLink("+", destination: TaskFormView().environmentObject(vm))
-                
-            }
-            .alert("Error", isPresented: $showingError, actions: {
-                Button("OK", role: .cancel) {vm.error = nil}
-            }, message: {
-                Text(vm.error ?? "")
-            })
-        }
-        .onAppear {
-            vm.loadTasks()
-        }
-        .onChange(of: vm.error) {
-            showingError = vm.error != nil
         }
     }
     
@@ -58,4 +73,12 @@ struct TaskListView: View {
         case .high: return Color.red
         }
     }
+    
+    func formattedTaskDate(for date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+
+        return formatter.string(from: date)
+    }
 }
+

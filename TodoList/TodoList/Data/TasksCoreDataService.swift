@@ -8,12 +8,12 @@
 import Foundation
 import CoreData
 
-class CoreDataService {
-    static let shared = CoreDataService()
+class TasksCoreDataService {
+    static let shared = TasksCoreDataService()
     
     private init() {}
     
-    private var context = CoreDataStack.shared.persistentContainer.viewContext
+    private(set) var context = CoreDataStack.shared.persistentContainer.viewContext
 
     private func taskExists(withName name: String) -> Bool? {
         let request = TodoTask.fetchRequest()
@@ -59,7 +59,7 @@ class CoreDataService {
         guard let taskExists else { throw TodoTaskError.taskNotFound }
         guard !taskExists else { throw TodoTaskError.duplicateTask }
         
-        let task = newTask.toEntity(context: context)
+        let _ = newTask.toEntity(context: context)
         
         do {
             try context.save()
@@ -105,9 +105,15 @@ class CoreDataService {
         }
     }
     
-    func getTasks() throws -> [TodoTask] {
+    func getTasks(sortOption: SortOption, searchText: String) throws -> [TodoTask] {
         do {
-            let tasks = try context.fetch(TodoTask.fetchRequest())
+            let request = TodoTask.fetchRequest()
+            if !searchText.isEmpty {
+                request.predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+            }
+            request.sortDescriptors = sortOption.sortDescriptors
+
+            let tasks = try context.fetch(request)
             
             return tasks
         } catch {

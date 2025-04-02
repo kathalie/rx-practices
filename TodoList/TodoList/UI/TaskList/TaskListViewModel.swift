@@ -7,16 +7,37 @@
 
 import Foundation
 import Combine
+import CoreData
+import SwiftUI
 
 class TaskListViewModel: ObservableObject, HandlesErrors {
     @Published private(set) var tasks: [TodoTask] = []
     @Published var error: String?
     
-    private let todoTasksService = CoreDataService.shared
+    @Published var searchText: String = ""
+    @Published var sortOption: SortOption = .allFields
     
-    func loadTasks() {
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave, object: TasksCoreDataService.shared.context)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                
+                self.loadTasks(sortOption: self.sortOption, searchText: self.searchText)
+            }
+            .store(in: &cancellables)
+        
+        Publishers.CombineLatest($sortOption, $searchText)
+            .sink { [weak self] sortOption, searchText in
+                self?.loadTasks(sortOption: sortOption, searchText: searchText)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func loadTasks(sortOption: SortOption, searchText: String) {
         do {
-            tasks = try todoTasksService.getTasks()
+            tasks = try TasksCoreDataService.shared.getTasks(sortOption: sortOption, searchText: searchText)
         } catch {
             handleError(error)
         }
@@ -25,8 +46,7 @@ class TaskListViewModel: ObservableObject, HandlesErrors {
     func deleteTask(at offsets: IndexSet) {
         offsets.forEach { index in
             do {
-                try todoTasksService.deleteTask(by: tasks[index].id)
-                loadTasks()
+                try TasksCoreDataService.shared.deleteTask(by: tasks[index].id)
             } catch {
                 handleError(error)
             }
@@ -43,8 +63,7 @@ class TaskListViewModel: ObservableObject, HandlesErrors {
         )
         
         do {
-            try todoTasksService.editTask(updatedTask)
-            loadTasks()
+            try TasksCoreDataService.shared.editTask(updatedTask)
         } catch {
             handleError(error)
         }

@@ -17,9 +17,7 @@ class TaskFormViewModel: ObservableObject, HandlesErrors {
     @Published var error: String?
     
     let navigationTitle: String
-    
-    private let todoTasksService = CoreDataService.shared
-    
+        
     init(initialTask: TodoTask?) {
         self.initialTask = initialTask
         self.taskName = initialTask?.name ?? ""
@@ -45,7 +43,7 @@ class TaskFormViewModel: ObservableObject, HandlesErrors {
         )
         
         do {
-            try todoTasksService.createTask(newTask)
+            try TasksCoreDataService.shared.createTask(newTask)
         } catch {
             handleError(error)
         }
@@ -60,7 +58,7 @@ class TaskFormViewModel: ObservableObject, HandlesErrors {
             priority: taskPriority
         )
         do {
-            try todoTasksService.editTask(updatedTask)
+            try TasksCoreDataService.shared.editTask(updatedTask)
         } catch {
             handleError(error)
         }

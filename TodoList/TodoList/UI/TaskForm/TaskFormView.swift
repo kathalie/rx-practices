@@ -38,9 +38,9 @@ struct TaskFormView: View {
         }, message: {
             Text(vm.error ?? "")
         })
-        .onDisappear {
-            taskListVM.loadTasks()
-        }
+//        .onDisappear {
+//            taskListVM.loadTasks()
+//        }
     }
     
     private func handleSave() {
