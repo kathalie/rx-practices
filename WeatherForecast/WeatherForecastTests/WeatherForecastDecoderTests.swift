@@ -21,6 +21,10 @@ final class WeatherForecastDecoderTests: XCTestCase {
         disposeBag = DisposeBag()
     }
     
+    /**
+     * Tests  successful fetching of city coordinates.
+     * Expected result: the correct city name ("Kyiv") with corresponding latitude and longitude is returned.
+     */
     func testFetchCityCoordinatesSuccess() {
         let expectedModel = CoordinatesModel(name: "Kyiv", lat: 40.0, lon: 40.0)
         let ignoredData = CoordinatesModel(name: "Berlin", lat: 30.0, lon: 10.0)
@@ -48,6 +52,10 @@ final class WeatherForecastDecoderTests: XCTestCase {
         XCTAssertEqual(results.first?.name, expectedModel.name)
     }
     
+    /**
+     * Tests failure in fetching city coordinates.
+     * Expected result: a DecodingError is returned.
+     */
     func testFetchCityCoordinatesFailure() {
         let mockService = MockNetworkingService(response: .error(DecodingError.failedToDecode))
         let weatherService = OpenWeatherService(networkingService: mockService)
@@ -69,6 +77,10 @@ final class WeatherForecastDecoderTests: XCTestCase {
         XCTAssertTrue(results.first?.error is DecodingError)
     }
     
+    /**
+     * Tests  successful fetching of a week weather forecast.
+     * Expected result: the forecast contains one entry, and contains a weather condition "Clear".
+     */
     func testFetchWeekForecastSuccess() {
         let expectedModel = WeekWeatherForecastModel(list: [
             DayForecastModel(
@@ -100,7 +112,11 @@ final class WeatherForecastDecoderTests: XCTestCase {
         XCTAssertEqual(results.first?.list.count, 1)
         XCTAssertEqual(results.first?.list.first?.weather.first?.main, "Clear")
     }
-        
+       
+    /**
+     * Tests failure in fetching a week weather forecast.
+     * Expected result: a DecodingError is returned.
+     */
     func testFetchWeekForecastFailure() {
         let mockService = MockNetworkingService(response: .error(DecodingError.failedToDecode))
         let weatherService = OpenWeatherService(networkingService: mockService)
@@ -122,6 +138,10 @@ final class WeatherForecastDecoderTests: XCTestCase {
         XCTAssertTrue(results.first?.error is DecodingError)
     }
     
+    /**
+     * Tests successful fetching of a weather image.
+     * Expected result: a valid UIImage object.
+     */
     func testFetchWeatherImageSuccess() {
         let expectedImage = UIImage(systemName: "cloud.sun.fill")!
         let mockService = MockNetworkingService(response: .just(expectedImage.pngData()!))
@@ -143,6 +163,10 @@ final class WeatherForecastDecoderTests: XCTestCase {
         XCTAssertEqual(results.count, 1)
     }
     
+    /**
+     * Tests failure in fetching a weather image.
+     * Expected result: a DecodingError is returned.
+     */
     func testFetchWeatherImageFailure() {
         let mockService = MockNetworkingService(response: .error(DecodingError.failedToDecode))
         let weatherService = OpenWeatherService(networkingService: mockService)
