@@ -15,7 +15,7 @@ class CoreDataService {
     
     private var context = CoreDataStack.shared.persistentContainer.viewContext
 
-    private func taskExists(withName name: String) -> Bool {
+    private func taskExists(withName name: String) -> Bool? {
         let request = TodoTask.fetchRequest()
         request.predicate = NSPredicate(format: "name == \"\(name)\"")
         
@@ -26,7 +26,7 @@ class CoreDataService {
         } catch {
             print("Error checking if task exists: \(error.localizedDescription)")
             
-            return false
+            return nil
         }
     }
     
@@ -52,16 +52,14 @@ class CoreDataService {
     }
     
     func createTask(_ newTask: CreateTodoTaskModel) throws -> Void {
-        guard !newTask.name.isEmpty else {
-            throw TodoTaskError.emptyName
-        }
-        guard !taskExists(withName: newTask.name) else {
-            throw TodoTaskError.duplicateTask
+        guard !newTask.name.isEmpty else { throw TodoTaskError.emptyName
         }
         
-        let task = TodoTask(context: context)
-        task.id = UUID()
-        task.name = newTask.name
+        let taskExists = taskExists(withName: newTask.name)
+        guard let taskExists else { throw TodoTaskError.taskNotFound }
+        guard !taskExists else { throw TodoTaskError.duplicateTask }
+        
+        let task = newTask.toEntity(context: context)
         
         do {
             try context.save()
@@ -75,15 +73,10 @@ class CoreDataService {
     }
     
     func editTask(_ task: EditTodoTaskModel) throws -> Void {
-        guard !task.name.isEmpty else {
-            throw TodoTaskError.emptyName
-        }
-        guard let taskToEdit = getTask(by: task.id) else {
-            throw TodoTaskError.taskNotFound
-        }
-        
-        taskToEdit.name = task.name
-        taskToEdit.isCompleted = task.isCompleted
+        guard !task.name.isEmpty else { throw TodoTaskError.emptyName }
+        guard let taskToEdit = getTask(by: task.id) else { throw TodoTaskError.taskNotFound }
+
+        task.update(taskToEdit)
         
         do {
             try context.save()
@@ -98,9 +91,7 @@ class CoreDataService {
     
     func deleteTask(by id: UUID) throws -> Void {
         do {
-            guard let taskToDelete = getTask(by: id) else {
-                throw TodoTaskError.taskNotFound
-            }
+            guard let taskToDelete = getTask(by: id) else { throw TodoTaskError.taskNotFound }
             
             context.delete(taskToDelete)
             

@@ -17,7 +17,7 @@ struct TaskListView: View {
         NavigationView {
             List {
                 ForEach(vm.tasks) { task in
-                    NavigationLink(destination: EditTaskView(taskToEdit: task, taskListVm: vm)) {
+                    NavigationLink(destination: TaskFormView(taskToEdit: task).environmentObject(vm)) {
                         HStack {
                             Button(action: { vm.toggleCompletion(for: task) }) {
                                 Image(systemName: task.isCompleted ? "checkmark.square" : "square")
@@ -25,14 +25,17 @@ struct TaskListView: View {
                             .buttonStyle(PlainButtonStyle())
                             
                             Text(task.name)
+                                .strikethrough(task.isCompleted)
                         }
                     }
+                    .background(taskBgColor(for: task))
                 }
                 .onDelete(perform: vm.deleteTask)
             }
             .navigationTitle("Todo List")
             .toolbar {
-                NavigationLink("+", destination: CreateTaskView(taskListVm: vm))
+                NavigationLink("+", destination: TaskFormView().environmentObject(vm))
+                
             }
             .alert("Error", isPresented: $showingError, actions: {
                 Button("OK", role: .cancel) {vm.error = nil}
@@ -40,8 +43,19 @@ struct TaskListView: View {
                 Text(vm.error ?? "")
             })
         }
-        .onChange(of: vm.error) { _ in
+        .onAppear {
+            vm.loadTasks()
+        }
+        .onChange(of: vm.error) {
             showingError = vm.error != nil
+        }
+    }
+    
+    func taskBgColor(for task: TodoTask) -> Color {
+        switch TaskPriority.getCase(with: task.priority) ?? .low {
+        case .low: return Color.green
+        case .medium: return Color.yellow
+        case .high: return Color.red
         }
     }
 }
