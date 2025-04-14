@@ -8,13 +8,12 @@
 import Foundation
 import Combine
 
-class TaskFormViewModel: ObservableObject, HandlesErrors {
+class TaskFormViewModel: ObservableObject {
     private let initialTask: TodoTask?
     
     @Published var taskName: String
     @Published var taskPriority: TaskPriority
     @Published var taskDueDate: Date
-    @Published var error: String?
     
     let navigationTitle: String
         
@@ -42,11 +41,7 @@ class TaskFormViewModel: ObservableObject, HandlesErrors {
             priority: taskPriority
         )
         
-        do {
-            try TasksCoreDataService.shared.createTask(newTask)
-        } catch {
-            handleError(error)
-        }
+        TasksCoreDataService.shared.createTask(newTask)
     }
     
     private func updateTask(_ initialTask: TodoTask) {
@@ -57,10 +52,7 @@ class TaskFormViewModel: ObservableObject, HandlesErrors {
             dueDate: taskDueDate,
             priority: taskPriority
         )
-        do {
-            try TasksCoreDataService.shared.editTask(updatedTask)
-        } catch {
-            handleError(error)
-        }
+        
+        TasksCoreDataService.shared.editTask(updatedTask)
     }
 }

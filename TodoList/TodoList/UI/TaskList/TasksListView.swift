@@ -15,7 +15,7 @@ struct TaskListView: View {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        vm.$error
+        TasksCoreDataService.shared.$error
             .map {$0 != nil}
             .assign(to: \.showingError, on: self)
             .store(in: &cancellables)
@@ -38,9 +38,9 @@ struct TaskListView: View {
                 }
             }
             .alert("Error", isPresented: $showingError, actions: {
-                Button("OK", role: .cancel) { vm.error = nil }
+                Button("OK", role: .cancel) { TasksCoreDataService.shared.error = nil }
             }, message: {
-                Text(vm.error ?? "")
+                Text(TasksCoreDataService.shared.error ?? "")
             })
         }
     }

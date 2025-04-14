@@ -10,45 +10,49 @@ import Combine
 import CoreData
 import SwiftUI
 
-class TaskListViewModel: ObservableObject, HandlesErrors {
-    @Published private(set) var tasks: [TodoTask] = []
-    @Published var error: String?
-    @Published var searchText: String = ""
+class TaskListViewModel: ObservableObject {
+    // MARK: Input
     @Published var sortOption: SortOption = .allFields
+    @Published var searchText: String = ""
+    
+    // MARK: Output
+    @Published private(set) var tasks: [TodoTask] = []
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave, object: TasksCoreDataService.shared.context)
-            .sink { [weak self] _ in
-                guard let self else { return }
-                
-                self.loadTasks(sortOption: self.sortOption, searchText: self.searchText)
-            }
+        TasksCoreDataService.shared.$searchText
+            .assign(to: \.searchText, on: self)
             .store(in: &cancellables)
         
-        Publishers.CombineLatest($sortOption, $searchText)
-            .sink { [weak self] sortOption, searchText in
-                self?.loadTasks(sortOption: sortOption, searchText: searchText)
-            }
+        TasksCoreDataService.shared.$sortOption
+            .assign(to: \.sortOption, on: self)
             .store(in: &cancellables)
+        
+        TasksCoreDataService.shared.getTasksPublisher(
+            sortOption: sortOption,
+            searchText: searchText
+        )
+        .assign(to: \.tasks, on: self)
+        .store(in: &cancellables)
+        
+//        Publishers.CombineLatest($sortOption, $searchText)
+//            .sink { [weak self] sortOption, searchText in
+//                guard let self else {return}
+//
+//                TasksCoreDataService.shared.getTasksPublisher(
+//                    sortOption: sortOption,
+//                    searchText: searchText
+//                )
+//                .assign(to: \.tasks, on: self)
+//                .store(in: &cancellables)
+//            }
+//            .store(in: &cancellables)
     }
-    
-    func loadTasks(sortOption: SortOption, searchText: String) {
-        do {
-            tasks = try TasksCoreDataService.shared.getTasks(sortOption: sortOption, searchText: searchText)
-        } catch {
-            handleError(error)
-        }
-    }
-    
+
     func deleteTask(at offsets: IndexSet) {
-        offsets.forEach { index in
-            do {
-                try TasksCoreDataService.shared.deleteTask(by: tasks[index].id)
-            } catch {
-                handleError(error)
-            }
+        for index in offsets {
+            TasksCoreDataService.shared.deleteTask(by: tasks[index].id)
         }
     }
     
@@ -61,11 +65,7 @@ class TaskListViewModel: ObservableObject, HandlesErrors {
             priority: TaskPriority.getCase(with: task.priority) ?? .low
         )
         
-        do {
-            try TasksCoreDataService.shared.editTask(updatedTask)
-        } catch {
-            handleError(error)
-        }
+        TasksCoreDataService.shared.editTask(updatedTask)
     }
 }
 

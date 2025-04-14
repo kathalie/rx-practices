@@ -37,16 +37,16 @@ struct TaskFormView: View {
         }
         .navigationTitle(vm.navigationTitle)
         .alert("Error", isPresented: $showingError, actions: {
-            Button("OK", role: .cancel) {vm.error = nil}
+            Button("OK", role: .cancel) {TasksCoreDataService.shared.error = nil}
         }, message: {
-            Text(vm.error ?? "")
+            Text(TasksCoreDataService.shared.error ?? "")
         })
     }
     
     private func handleSave() {
         vm.saveTask()
         
-        guard vm.error == nil else {
+        guard TasksCoreDataService.shared.error == nil else {
             showingError = true
             return
         }

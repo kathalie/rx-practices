@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C91CD6F2DA6C7F700175826 /* TaskGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C91CD6E2DA6C7F700175826 /* TaskGridViewController.swift */; };
+		8C91CD712DA6C85300175826 /* TaskGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C91CD702DA6C85300175826 /* TaskGridView.swift */; };
+		8C91CD742DA6CE4D00175826 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8C91CD732DA6CE4D00175826 /* RxCocoa */; };
+		8C91CD762DA6CE4D00175826 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 8C91CD752DA6CE4D00175826 /* RxRelay */; };
+		8C91CD782DA6CE4D00175826 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C91CD772DA6CE4D00175826 /* RxSwift */; };
+		8C91CD7A2DA6CFCF00175826 /* TaskGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C91CD792DA6CFCF00175826 /* TaskGridViewModel.swift */; };
+		8C91CD7D2DA6D52900175826 /* RxCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 8C91CD7C2DA6D52900175826 /* RxCombine */; };
 		8CA521EB2D9B5EA0003BE5E0 /* TodoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA521EA2D9B5EA0003BE5E0 /* TodoListApp.swift */; };
 		8CA521ED2D9B5EA0003BE5E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA521EC2D9B5EA0003BE5E0 /* ContentView.swift */; };
 		8CA521EF2D9B5EA2003BE5E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CA521EE2D9B5EA2003BE5E0 /* Assets.xcassets */; };
@@ -22,11 +29,13 @@
 		8CA522142D9C400C003BE5E0 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522132D9C400C003BE5E0 /* TaskListViewModel.swift */; };
 		8CA522422D9C78AF003BE5E0 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522412D9C78AF003BE5E0 /* TaskFormView.swift */; };
 		8CA522442D9C78B8003BE5E0 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA522432D9C78B8003BE5E0 /* TaskFormViewModel.swift */; };
-		8CF1FD172D9D79FD0060443A /* HandlesErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */; };
 		8CF1FD202D9DC3DF0060443A /* SortOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C91CD6E2DA6C7F700175826 /* TaskGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGridViewController.swift; sourceTree = "<group>"; };
+		8C91CD702DA6C85300175826 /* TaskGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGridView.swift; sourceTree = "<group>"; };
+		8C91CD792DA6CFCF00175826 /* TaskGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGridViewModel.swift; sourceTree = "<group>"; };
 		8CA521E72D9B5EA0003BE5E0 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CA521EA2D9B5EA0003BE5E0 /* TodoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListApp.swift; sourceTree = "<group>"; };
 		8CA521EC2D9B5EA0003BE5E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,7 +53,6 @@
 		8CA522132D9C400C003BE5E0 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		8CA522412D9C78AF003BE5E0 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		8CA522432D9C78B8003BE5E0 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
-		8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlesErrors.swift; sourceTree = "<group>"; };
 		8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,12 +61,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C91CD7D2DA6D52900175826 /* RxCombine in Frameworks */,
+				8C91CD782DA6CE4D00175826 /* RxSwift in Frameworks */,
+				8C91CD762DA6CE4D00175826 /* RxRelay in Frameworks */,
+				8C91CD742DA6CE4D00175826 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C91CD6D2DA6C7B800175826 /* TaskGrid */ = {
+			isa = PBXGroup;
+			children = (
+				8C91CD6E2DA6C7F700175826 /* TaskGridViewController.swift */,
+				8C91CD702DA6C85300175826 /* TaskGridView.swift */,
+				8C91CD792DA6CFCF00175826 /* TaskGridViewModel.swift */,
+			);
+			path = TaskGrid;
+			sourceTree = "<group>";
+		};
 		8CA521DE2D9B5EA0003BE5E0 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +137,7 @@
 		8CA5220F2D9C3FC9003BE5E0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8C91CD6D2DA6C7B800175826 /* TaskGrid */,
 				8CA522402D9C789B003BE5E0 /* TaskForm */,
 				8CA5223F2D9C75B0003BE5E0 /* TaskList */,
 			);
@@ -142,7 +165,6 @@
 		8CF1FD152D9D79F10060443A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8CF1FD162D9D79FD0060443A /* HandlesErrors.swift */,
 				8CF1FD1F2D9DC3DF0060443A /* SortOptions.swift */,
 			);
 			path = Common;
@@ -164,6 +186,12 @@
 			dependencies = (
 			);
 			name = TodoList;
+			packageProductDependencies = (
+				8C91CD732DA6CE4D00175826 /* RxCocoa */,
+				8C91CD752DA6CE4D00175826 /* RxRelay */,
+				8C91CD772DA6CE4D00175826 /* RxSwift */,
+				8C91CD7C2DA6D52900175826 /* RxCombine */,
+			);
 			productName = TodoList;
 			productReference = 8CA521E72D9B5EA0003BE5E0 /* TodoList.app */;
 			productType = "com.apple.product-type.application";
@@ -192,6 +220,10 @@
 				Base,
 			);
 			mainGroup = 8CA521DE2D9B5EA0003BE5E0;
+			packageReferences = (
+				8C91CD722DA6CE4D00175826 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				8C91CD7B2DA6D52900175826 /* XCRemoteSwiftPackageReference "RxCombine" */,
+			);
 			productRefGroup = 8CA521E82D9B5EA0003BE5E0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,8 +263,10 @@
 				8CA522042D9C27F8003BE5E0 /* TodoTask+CoreDataClass.swift in Sources */,
 				8CA522122D9C4001003BE5E0 /* TasksListView.swift in Sources */,
 				8CA5220A2D9C2A98003BE5E0 /* CoreDataStack.swift in Sources */,
-				8CF1FD172D9D79FD0060443A /* HandlesErrors.swift in Sources */,
+				8C91CD7A2DA6CFCF00175826 /* TaskGridViewModel.swift in Sources */,
 				8CA522142D9C400C003BE5E0 /* TaskListViewModel.swift in Sources */,
+				8C91CD712DA6C85300175826 /* TaskGridView.swift in Sources */,
+				8C91CD6F2DA6C7F700175826 /* TaskGridViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +472,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8C91CD722DA6CE4D00175826 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.9.0;
+			};
+		};
+		8C91CD7B2DA6D52900175826 /* XCRemoteSwiftPackageReference "RxCombine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/RxCombine.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C91CD732DA6CE4D00175826 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C91CD722DA6CE4D00175826 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		8C91CD752DA6CE4D00175826 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C91CD722DA6CE4D00175826 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		8C91CD772DA6CE4D00175826 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C91CD722DA6CE4D00175826 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		8C91CD7C2DA6D52900175826 /* RxCombine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C91CD7B2DA6D52900175826 /* XCRemoteSwiftPackageReference "RxCombine" */;
+			productName = RxCombine;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8CA521F52D9B5EA2003BE5E0 /* TodoList.xcdatamodeld */ = {

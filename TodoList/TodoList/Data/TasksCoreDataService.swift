@@ -7,14 +7,23 @@
 
 import Foundation
 import CoreData
+import Combine
 
 class TasksCoreDataService {
     static let shared = TasksCoreDataService()
+    
+    @Published var sortOption: SortOption = .allFields
+    @Published var searchText: String = ""
+    @Published var error: String?
     
     private init() {}
     
     private(set) var context = CoreDataStack.shared.persistentContainer.viewContext
 
+    private func handleError(_ error: Error) {
+        self.error = (error as? TodoTaskError)?.rawValue ?? "Something went wrong"
+    }
+    
     private func taskExists(withName name: String) -> Bool? {
         let request = TodoTask.fetchRequest()
         request.predicate = NSPredicate(format: "name == \"\(name)\"")
@@ -51,7 +60,7 @@ class TasksCoreDataService {
         }
     }
     
-    func createTask(_ newTask: CreateTodoTaskModel) throws -> Void {
+    private func _createTask(_ newTask: CreateTodoTaskModel) throws -> Void {
         guard !newTask.name.isEmpty else { throw TodoTaskError.emptyName
         }
         
@@ -72,7 +81,15 @@ class TasksCoreDataService {
         }
     }
     
-    func editTask(_ task: EditTodoTaskModel) throws -> Void {
+    func createTask(_ newTask: CreateTodoTaskModel) -> Void {
+        do {
+            try _createTask(newTask)
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    private func _editTask(_ task: EditTodoTaskModel) throws -> Void {
         guard !task.name.isEmpty else { throw TodoTaskError.emptyName }
         guard let taskToEdit = getTask(by: task.id) else { throw TodoTaskError.taskNotFound }
 
@@ -89,7 +106,15 @@ class TasksCoreDataService {
         }
     }
     
-    func deleteTask(by id: UUID) throws -> Void {
+    func editTask(_ task: EditTodoTaskModel) -> Void {
+        do {
+            try _editTask(task)
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    private func _deleteTask(by id: UUID) throws -> Void {
         do {
             guard let taskToDelete = getTask(by: id) else { throw TodoTaskError.taskNotFound }
             
@@ -105,7 +130,15 @@ class TasksCoreDataService {
         }
     }
     
-    func getTasks(sortOption: SortOption, searchText: String) throws -> [TodoTask] {
+    func deleteTask(by id: UUID) -> Void {
+        do {
+            try _deleteTask(by: id)
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    private func getTasks(sortOption: SortOption, searchText: String) throws -> [TodoTask] {
         do {
             let request = TodoTask.fetchRequest()
             if !searchText.isEmpty {
@@ -121,5 +154,23 @@ class TasksCoreDataService {
             
             throw TodoTaskError.failedToGetTasks
         }
+    }
+    
+    func getTasksPublisher(sortOption: SortOption, searchText: String) -> AnyPublisher<[TodoTask], Never> {
+        let tasksUpdatedPublisher = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave, object: context)
+
+        return Publishers.CombineLatest3(tasksUpdatedPublisher, $searchText, $sortOption)
+            .map {[weak self] _, searchText, sortOption in
+                guard let self else {return []}
+                
+                do {
+                    return try self.getTasks(sortOption: sortOption, searchText: searchText)
+                } catch {
+                    self.handleError(error)
+                    
+                    return []
+                }
+            }
+            .eraseToAnyPublisher()
     }
 }
