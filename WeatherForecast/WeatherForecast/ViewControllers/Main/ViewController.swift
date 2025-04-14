@@ -76,20 +76,22 @@ class ViewController: UIViewController {
                 withIdentifier: Const.dayForecastCellReuseId,
                 for: indexPath
             ) as! WeatherForecastTableViewCell
-            
+              
             cell.config(with: item)
               
             return cell
         })
         
         var sections: [SectionOfCustomData] = []
+        
         if let forecast {
+            print(WeekWeatherForecast(from: forecast))
             sections = [SectionOfCustomData(
                 header: "",
                 items: WeekWeatherForecast(from: forecast).wetherForecast
             )]
         }
-        
+        print(sections)
         forecastTableView.dataSource = nil
         forecastTableView.delegate = nil
             

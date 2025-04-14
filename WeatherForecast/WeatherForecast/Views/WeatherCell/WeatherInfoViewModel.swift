@@ -16,11 +16,10 @@ struct WeekWeatherForecast {
         
         let grouppedModel = Dictionary(grouping: transfromedModel) { $0.date }
             .sorted(by: {$0.key < $1.key})
-        
         grouppedModel.forEach { (date, forecastInfos) in
             guard
-                let dayForecastInfo = forecastInfos.first(where: {$0.hour == 13})?.forecast,
-                let nightForecastInfo = forecastInfos.first(where: {$0.hour == 22})?.forecast
+                let dayForecastInfo = forecastInfos.first(where: {(6...18).contains($0.hour)})?.forecast,
+                let nightForecastInfo = forecastInfos.first(where: {(0...5).contains($0.hour) || (19...24).contains($0.hour)})?.forecast
             else {return}
             
             wetherForecast.append(DayWeatherForecast(
