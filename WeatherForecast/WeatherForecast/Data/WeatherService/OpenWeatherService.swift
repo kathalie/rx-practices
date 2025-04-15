@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import UIKit
 
 class OpenWeatherService: WeatherServiceProtocol {
     private let decodingService: DecodingServiceProtocol
@@ -71,7 +70,7 @@ class OpenWeatherService: WeatherServiceProtocol {
             }
     }
 
-    func fetchWeatherImage(with id: String) -> Single<UIImage> {
+    func fetchWeatherImage(with id: String) -> Single<WeatherImageModel> {
         let openWeatherIconApi = "https://openweathermap.org/img/wn/"
         
         let url = URL(string: openWeatherIconApi)!
@@ -84,11 +83,6 @@ class OpenWeatherService: WeatherServiceProtocol {
         let fetchedImage = networkingService.fetchData(on: request)
         
         return fetchedImage
-            .map { data in
-                guard let image = UIImage(data: data) else {
-                    throw DecodingError.failedToDecode
-                }
-                return image
-            }
+            .map { WeatherImageModel(imageData: $0) }
     }
 }

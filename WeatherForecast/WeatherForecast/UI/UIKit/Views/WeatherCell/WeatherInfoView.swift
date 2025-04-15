@@ -11,11 +11,7 @@ import RxRelay
 
 class WeatherInfoView: UIView {
     private let disposeBag = DisposeBag()
-    private let weatherService = OpenWeatherService()
-    
-    // MARK: Output
-    private let _weatherImage = PublishRelay<UIImage?>()
-    private(set) lazy var weatherImage = self._weatherImage.asObservable()
+    private let vm = WeatherInfoViewModel()
     
     let kCONTENT_XIB_NAME = "WeatherInfoView"
     
@@ -46,57 +42,31 @@ class WeatherInfoView: UIView {
     }
     
     private func doRxCocoaSetup()  {
-        // MARK: Output
-        weatherImage
+        vm.weatherImage
+            .map { $0?.uiImage ?? UIImage(systemName: "exclamationmark.triangle.fill") }
             .bind(to: iconImage.rx.image)
             .disposed(by: disposeBag)
-    }
-    
-    public func config(with config: HalfDayWeatherForecast) {
-        fetchIcon(with: config.iconId)
         
-        let configObservable = Observable.just(config)
-
-        configObservable
-            .map {"\($0.temperature)°C"}
+        vm.weatherInfo
+            .map {$0.weatherCondition}
             .bind(to: self.temperatureLabel.rx.text)
             .disposed(by: disposeBag)
-        configObservable
-            .map(\.weatherCondition)
+        vm.weatherInfo
+            .map {$0.temperature}
             .bind(to: self.weatherConditionLabel.rx.text)
             .disposed(by: disposeBag)
-        configObservable
-            .map {"\($0.windSpeed)m/s"}
+        vm.weatherInfo
+            .map {$0.windSpeed}
             .bind(to: self.windSpeedLabel.rx.text)
             .disposed(by: disposeBag)
-        configObservable
-            .map {"\($0.rainMm)mm"}
+        vm.weatherInfo
+            .map {$0.rainMm}
             .bind(to: self.rainLabel.rx.text)
             .disposed(by: disposeBag)
     }
     
-    private func fetchIcon(with id: String) {
-        weatherService.fetchWeatherImage(with: id)
-            .observe(on: MainScheduler.instance)
-            .subscribe(
-                onSuccess: { [weak self] image in
-                    guard let self else {return}
-                    
-                    Observable.just(image)
-                        .bind(to: self._weatherImage)
-                        .disposed(by: self.disposeBag)
-                },
-                onFailure: {[weak self] error in
-                    guard let self else {return}
-                    
-                    print(error)
-                    
-                    Observable.just(nil)
-                        .bind(to: self._weatherImage)
-                        .disposed(by: self.disposeBag)
-                }
-            )
-            .disposed(by: disposeBag)
+    public func config(with config: HalfDayWeatherForecast) {
+        vm.config.accept(config)
     }
 }
 

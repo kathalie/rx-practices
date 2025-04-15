@@ -11,5 +11,5 @@ import UIKit
 protocol WeatherServiceProtocol {
     func fetchCityCoordinatess(for cityName: String) -> Single<CoordinatesModel>
     func fetchWeekForecast(lat: Double, lon: Double) -> Single<WeekWeatherForecastModel>
-    func fetchWeatherImage(with id: String) -> Single<UIImage>
+    func fetchWeatherImage(with id: String) -> Single<WeatherImageModel>
 }

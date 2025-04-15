@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RxSwift
 
 struct WeekWeatherForecast {
     private(set) var wetherForecast: [DayWeatherForecast] = []
@@ -50,32 +49,5 @@ struct WeekWeatherForecast {
                 forecast: forecast
             )
         }
-    }
-}
-
-struct DayWeatherForecast {
-    let date: String
-    let dayForecast: HalfDayWeatherForecast
-    let nightForecast: HalfDayWeatherForecast
-}
-
-struct HalfDayWeatherForecast {
-    let iconId: String
-    let temperature: Double
-    let weatherCondition: String
-    let windSpeed: Double
-    let rainMm: Double
-    
-    init?(from model: DayForecastModel){
-        guard
-            let iconId = model.weather.first?.icon,
-            let weatherCondition = model.weather.first?.main
-        else { return nil }
-            
-        self.iconId = iconId
-        self.temperature = model.main.temp
-        self.weatherCondition = weatherCondition
-        self.windSpeed = model.wind.speed
-        self.rainMm = model.rain?.threeHours ?? 0
     }
 }
