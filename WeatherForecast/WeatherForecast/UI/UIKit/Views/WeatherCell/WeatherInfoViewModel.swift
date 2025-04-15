@@ -55,18 +55,14 @@ class WeatherInfoViewModel {
                 onSuccess: { [weak self] image in
                     guard let self else {return}
                     
-                    Observable.just(image)
-                        .bind(to: self._weatherImage)
-                        .disposed(by: self.disposeBag)
+                    self._weatherImage.accept(image)
                 },
                 onFailure: {[weak self] error in
                     guard let self else {return}
                     
                     print(error)
                     
-                    Observable.just(nil)
-                        .bind(to: self._weatherImage)
-                        .disposed(by: self.disposeBag)
+                    self._weatherImage.accept(nil)
                 }
             )
             .disposed(by: disposeBag)

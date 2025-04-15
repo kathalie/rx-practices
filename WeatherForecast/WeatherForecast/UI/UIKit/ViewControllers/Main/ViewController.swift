@@ -85,13 +85,12 @@ class ViewController: UIViewController {
         var sections: [SectionOfCustomData] = []
         
         if let forecast {
-            print(WeekWeatherForecast(from: forecast))
             sections = [SectionOfCustomData(
                 header: "",
                 items: WeekWeatherForecast(from: forecast).wetherForecast
             )]
         }
-        print(sections)
+
         forecastTableView.dataSource = nil
         forecastTableView.delegate = nil
             

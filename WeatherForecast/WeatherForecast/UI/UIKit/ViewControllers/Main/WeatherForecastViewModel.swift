@@ -33,13 +33,8 @@ class WeatherForecastViewModel {
                 guard !city.isEmpty else {
                     guard let self else {return}
                     
-                    Observable.just("")
-                        .bind(to: self._outputCity)
-                        .disposed(by: disposeBag)
-                    
-                    Observable.just(nil)
-                        .bind(to: self._weatherForecast)
-                        .disposed(by: disposeBag)
+                    self._outputCity.accept("")
+                    self._weatherForecast.accept(nil)
                     
                     return
                 }
@@ -57,11 +52,7 @@ class WeatherForecastViewModel {
                 onSuccess: {[weak self] coordinatesModel in
                     guard let self else {return}
                     
-                    Observable.just(coordinatesModel)
-                        .map{$0.name}
-                        .bind(to: self._outputCity)
-                        .disposed(by: disposeBag)
-                    
+                    self._outputCity.accept(coordinatesModel.name)
                     self.fetchWeatherForecast(
                         lat: coordinatesModel.lat,
                         lon: coordinatesModel.lon
@@ -72,17 +63,12 @@ class WeatherForecastViewModel {
                     
                     print(error)
                     
-                    Observable.just("")
-                        .bind(to: self._outputCity)
-                        .disposed(by: disposeBag)
-                    
-                    Observable.just(nil)
-                        .bind(to: self._weatherForecast)
-                        .disposed(by: disposeBag)
-                    
-                    Observable.just((title: "Error", message: "Failed to find a city"))
-                        .bind(to: self._error)
-                        .disposed(by: self.disposeBag)
+                    self._outputCity.accept("")
+                    self._weatherForecast.accept(nil)
+                    self._error.accept((
+                        title: "Error",
+                        message: "Failed to find a city"
+                    ))
                 }
             )
             .disposed(by: disposeBag)
@@ -94,23 +80,19 @@ class WeatherForecastViewModel {
             .subscribe(
                 onSuccess: {[weak self] forecast in
                     guard let self else {return}
-
-                    Observable.just(forecast)
-                        .bind(to: self._weatherForecast)
-                        .disposed(by: self.disposeBag)
+                    
+                    self._weatherForecast.accept(forecast)
                 },
                 onFailure: {[weak self] error in
                     guard let self else {return}
                     
                     print(error)
                     
-                    Observable.just(nil)
-                        .bind(to: self._weatherForecast)
-                        .disposed(by: self.disposeBag)
-                    
-                    Observable.just((title: "Error", message: "Failed to fetch forecast"))
-                        .bind(to: self._error)
-                        .disposed(by: self.disposeBag)
+                    self._weatherForecast.accept(nil)
+                    self._error.accept((
+                        title: "Error",
+                        message: "Failed to fetch forecast"
+                    ))
                 }
             )
             .disposed(by: disposeBag)
