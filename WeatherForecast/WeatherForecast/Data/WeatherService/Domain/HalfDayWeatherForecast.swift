@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HalfDayWeatherForecast {
+struct HalfDayWeatherForecast: Hashable {
     let iconId: String
     let temperature: Double
     let weatherCondition: String

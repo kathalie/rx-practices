@@ -29,6 +29,10 @@ class WeatherForecastViewModel_Combine: ObservableObject {
     
     private func setupInputCityState() {
         $inputCity
+            .debounce(
+                for: .seconds(1),
+                scheduler: DispatchQueue.main
+            )
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] city in
                 guard let self else {return}

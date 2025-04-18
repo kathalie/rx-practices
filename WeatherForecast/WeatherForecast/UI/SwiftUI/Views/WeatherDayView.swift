@@ -37,7 +37,6 @@ struct WeatherDayView: View {
                 .padding(.horizontal)
             }
             .padding(.vertical)
-            .background(Color.white)
         } else {
             Spacer()
         }

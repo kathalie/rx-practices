@@ -37,7 +37,7 @@ struct WeatherHalfView: View {
 
                 Image(uiImage: vm.weatherImage?.uiImage ?? UIImage(systemName: "exclamationmark.triangle.fill")!)
                     .resizable()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 60, height: 60)
                     .foregroundColor(.gray)
 
                 Text(weatherInfo.temperature)

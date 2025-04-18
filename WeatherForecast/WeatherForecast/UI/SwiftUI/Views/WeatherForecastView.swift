@@ -27,7 +27,7 @@ struct WeatherForecastView: View {
                     LazyVStack {
                         ForEach(
                             weatherForecast.weatherForecast,
-                            id: \.date
+                            id: \.self
                         ) {
                             WeatherDayView(dayWeatherForecast: $0)
                             Divider()
