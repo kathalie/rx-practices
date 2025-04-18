@@ -35,6 +35,9 @@
 		8C994BF12DAE4E7A0097FD6E /* WeatherInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C994BF02DAE4E7A0097FD6E /* WeatherInfoViewModel.swift */; };
 		8C994BF32DAE50E10097FD6E /* WeatherImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C994BF22DAE50E10097FD6E /* WeatherImageModel.swift */; };
 		8C994BF52DAE5B140097FD6E /* WeatherImageModel+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C994BF42DAE5B140097FD6E /* WeatherImageModel+UIImage.swift */; };
+		8C994BF82DAE5E0A0097FD6E /* RxCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 8C994BF72DAE5E0A0097FD6E /* RxCombine */; };
+		8C994BFA2DAE8A9F0097FD6E /* WeatherDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C994BF92DAE8A9F0097FD6E /* WeatherDayView.swift */; };
+		8C994BFE2DAE92320097FD6E /* WeatherDayViewModel_Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C994BFD2DAE92320097FD6E /* WeatherDayViewModel_Combine.swift */; };
 		8CA5224C2D9C886F003BE5E0 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 8CA5224B2D9C886F003BE5E0 /* RxBlocking */; };
 		8CA5224E2D9C886F003BE5E0 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 8CA5224D2D9C886F003BE5E0 /* RxCocoa */; };
 		8CA522502D9C886F003BE5E0 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 8CA5224F2D9C886F003BE5E0 /* RxTest */; };
@@ -89,6 +92,8 @@
 		8C994BF02DAE4E7A0097FD6E /* WeatherInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoViewModel.swift; sourceTree = "<group>"; };
 		8C994BF22DAE50E10097FD6E /* WeatherImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImageModel.swift; sourceTree = "<group>"; };
 		8C994BF42DAE5B140097FD6E /* WeatherImageModel+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherImageModel+UIImage.swift"; sourceTree = "<group>"; };
+		8C994BF92DAE8A9F0097FD6E /* WeatherDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDayView.swift; sourceTree = "<group>"; };
+		8C994BFD2DAE92320097FD6E /* WeatherDayViewModel_Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDayViewModel_Combine.swift; sourceTree = "<group>"; };
 		8CA5BED22D92DE9600BF5533 /* OpenWeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherService.swift; sourceTree = "<group>"; };
 		8CA5BED52D92E0AF00BF5533 /* DecodingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingServiceProtocol.swift; sourceTree = "<group>"; };
 		8CA5BED92D92E2D100BF5533 /* NetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingServiceProtocol.swift; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C994BF82DAE5E0A0097FD6E /* RxCombine in Frameworks */,
 				8CA5224E2D9C886F003BE5E0 /* RxCocoa in Frameworks */,
 				8C8190DC2D831B3C008D4A09 /* RxDataSources in Frameworks */,
 				8C8190DA2D831B3C008D4A09 /* Differentiator in Frameworks */,
@@ -261,8 +267,9 @@
 		8C91CD872DADB28700175826 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8C91CD852DADB22100175826 /* WeatherHalfView.swift */,
 				8C91CD812DADAB6500175826 /* WeatherForecastView.swift */,
+				8C994BF92DAE8A9F0097FD6E /* WeatherDayView.swift */,
+				8C91CD852DADB22100175826 /* WeatherHalfView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -272,6 +279,7 @@
 			children = (
 				8C91CD832DADADE100175826 /* WeatherForecastViewModel_Combine.swift */,
 				8C91CD8E2DADB9F600175826 /* WeatherHalfViewModel_Combine.swift */,
+				8C994BFD2DAE92320097FD6E /* WeatherDayViewModel_Combine.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -354,6 +362,7 @@
 				8C8190D92D831B3C008D4A09 /* Differentiator */,
 				8C8190DB2D831B3C008D4A09 /* RxDataSources */,
 				8CA5224D2D9C886F003BE5E0 /* RxCocoa */,
+				8C994BF72DAE5E0A0097FD6E /* RxCombine */,
 			);
 			productName = WeatherForecast;
 			productReference = 8C81909D2D81FBD2008D4A09 /* WeatherForecast.app */;
@@ -412,6 +421,7 @@
 			packageReferences = (
 				8C8190D82D831B3C008D4A09 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				8CA5224A2D9C886F003BE5E0 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				8C994BF62DAE5E0A0097FD6E /* XCRemoteSwiftPackageReference "RxCombine" */,
 			);
 			productRefGroup = 8C81909E2D81FBD2008D4A09 /* Products */;
 			projectDirPath = "";
@@ -458,6 +468,7 @@
 				8C8190B72D820999008D4A09 /* WeatherForecastViewModel.swift in Sources */,
 				8C8190B92D8209D8008D4A09 /* WeatherServiceProtocol.swift in Sources */,
 				8C8190A52D81FBD2008D4A09 /* ViewController.swift in Sources */,
+				8C994BFE2DAE92320097FD6E /* WeatherDayViewModel_Combine.swift in Sources */,
 				8C8190D52D823F5C008D4A09 /* WeatherInfoView.swift in Sources */,
 				8CA5BEE22D93018600BF5533 /* RXNetworkingService.swift in Sources */,
 				8CA5BEE42D9301B900BF5533 /* JSONDecodingService.swift in Sources */,
@@ -472,6 +483,7 @@
 				8C91CD8D2DADB4DE00175826 /* HalfDayWeatherForecast.swift in Sources */,
 				8CA5BED32D92DE9600BF5533 /* OpenWeatherService.swift in Sources */,
 				8C91CD822DADAB6500175826 /* WeatherForecastView.swift in Sources */,
+				8C994BFA2DAE8A9F0097FD6E /* WeatherDayView.swift in Sources */,
 				8C91CD862DADB22100175826 /* WeatherHalfView.swift in Sources */,
 				8C994BF32DAE50E10097FD6E /* WeatherImageModel.swift in Sources */,
 				8C8190CB2D820D2A008D4A09 /* WeekWeatherForecastModel.swift in Sources */,
@@ -771,6 +783,14 @@
 				minimumVersion = 5.0.2;
 			};
 		};
+		8C994BF62DAE5E0A0097FD6E /* XCRemoteSwiftPackageReference "RxCombine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/RxCombine.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 		8CA5224A2D9C886F003BE5E0 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -791,6 +811,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8C8190D82D831B3C008D4A09 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		8C994BF72DAE5E0A0097FD6E /* RxCombine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C994BF62DAE5E0A0097FD6E /* XCRemoteSwiftPackageReference "RxCombine" */;
+			productName = RxCombine;
 		};
 		8CA5224B2D9C886F003BE5E0 /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;

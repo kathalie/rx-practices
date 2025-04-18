@@ -10,7 +10,6 @@ import RxRelay
 
 class WeatherForecastViewModel {
     private let disposeBag = DisposeBag()
-    private let weatherService = OpenWeatherService()
     
     // MARK: Input
     let inputCity = PublishRelay<String>()

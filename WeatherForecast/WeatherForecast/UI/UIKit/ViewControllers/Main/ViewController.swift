@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import SwiftUI
 
 struct SectionOfCustomData {
     var header: String
@@ -37,9 +38,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if useSwiftUi {
+            swiftuiSetup()
+        } else {
+            uiKitSetup()
+        }
+    }
+    
+    private func uiKitSetup() {
         vm = WeatherForecastViewModel(initialTextFieldState: cityTextField.text ?? "")
         
         doRxCocoaSetup()
+    }
+    
+    private func swiftuiSetup() {
+        let swiftUIViewController = UIHostingController(rootView: WeatherForecastView())
+        
+        addChild(swiftUIViewController)
+        
+        swiftUIViewController.view.frame = view.bounds
+        view.addSubview(swiftUIViewController.view)
+        
+        swiftUIViewController.didMove(toParent: self)
     }
     
     private func doRxCocoaSetup() {
@@ -87,7 +107,7 @@ class ViewController: UIViewController {
         if let forecast {
             sections = [SectionOfCustomData(
                 header: "",
-                items: WeekWeatherForecast(from: forecast).wetherForecast
+                items: WeekWeatherForecast(from: forecast).weatherForecast
             )]
         }
 

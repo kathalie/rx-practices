@@ -8,7 +8,7 @@
 import Foundation
 
 struct WeekWeatherForecast {
-    private(set) var wetherForecast: [DayWeatherForecast] = []
+    private(set) var weatherForecast: [DayWeatherForecast] = []
     
     init(from model: WeekWeatherForecastModel) {
         let transfromedModel = self.transformedModel(from: model)
@@ -21,7 +21,7 @@ struct WeekWeatherForecast {
                 let nightForecastInfo = forecastInfos.first(where: {(0...5).contains($0.hour) || (19...24).contains($0.hour)})?.forecast
             else {return}
             
-            wetherForecast.append(DayWeatherForecast(
+            weatherForecast.append(DayWeatherForecast(
                 date: date,
                 dayForecast: dayForecastInfo,
                 nightForecast: nightForecastInfo

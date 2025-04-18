@@ -18,7 +18,6 @@ struct WeatherInfo {
 
 class WeatherInfoViewModel {
     private let disposeBag = DisposeBag()
-    private let weatherService = OpenWeatherService()
     
     // MARK: Input
     let config = PublishRelay<HalfDayWeatherForecast>()
